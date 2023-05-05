@@ -1,4 +1,4 @@
-package com.example.demo;
+package proyectoCineSix;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -18,8 +18,6 @@ public class Sala implements Serializable {
 	private int id;
 
 	private int capacidad;
-
-	private int horario;
 
 	@Column(name="numero_sala")
 	private int numeroSala;
@@ -49,14 +47,6 @@ public class Sala implements Serializable {
 
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
-	}
-
-	public int getHorario() {
-		return this.horario;
-	}
-
-	public void setHorario(int horario) {
-		this.horario = horario;
 	}
 
 	public int getNumeroSala() {

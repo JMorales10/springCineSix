@@ -1,4 +1,4 @@
-package com.example.demo;
+package proyectoCineSix;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -20,6 +20,8 @@ public class Compra implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_compra")
 	private Date fechaCompra;
+
+	private float precio;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -53,6 +55,14 @@ public class Compra implements Serializable {
 
 	public void setFechaCompra(Date fechaCompra) {
 		this.fechaCompra = fechaCompra;
+	}
+
+	public float getPrecio() {
+		return this.precio;
+	}
+
+	public void setPrecio(float precio) {
+		this.precio = precio;
 	}
 
 	public Usuario getUsuario() {

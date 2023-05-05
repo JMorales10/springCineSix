@@ -1,4 +1,4 @@
-package com.example.demo;
+package proyectoCineSix;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -17,9 +17,9 @@ public class Entrada implements Serializable {
 	@Id
 	private int id;
 
-	private String asiento;
+	private int asiento;
 
-	private String fila;
+	private int fila;
 
 	//bi-directional many-to-one association to Compra
 	@OneToMany(mappedBy="entrada")
@@ -46,19 +46,19 @@ public class Entrada implements Serializable {
 		this.id = id;
 	}
 
-	public String getAsiento() {
+	public int getAsiento() {
 		return this.asiento;
 	}
 
-	public void setAsiento(String asiento) {
+	public void setAsiento(int asiento) {
 		this.asiento = asiento;
 	}
 
-	public String getFila() {
+	public int getFila() {
 		return this.fila;
 	}
 
-	public void setFila(String fila) {
+	public void setFila(int fila) {
 		this.fila = fila;
 	}
 

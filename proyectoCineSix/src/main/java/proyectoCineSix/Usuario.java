@@ -1,4 +1,4 @@
-package com.example.demo;
+package proyectoCineSix;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -27,6 +27,8 @@ public class Usuario implements Serializable {
 	private String nombre;
 
 	private String password;
+
+	private String rol;
 
 	//bi-directional many-to-one association to Compra
 	@OneToMany(mappedBy="usuario")
@@ -77,6 +79,14 @@ public class Usuario implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRol() {
+		return this.rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
 	}
 
 	public List<Compra> getCompras() {
