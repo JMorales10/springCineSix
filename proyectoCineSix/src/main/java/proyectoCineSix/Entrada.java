@@ -37,6 +37,14 @@ public class Entrada implements Serializable {
 
 	public Entrada() {
 	}
+	
+	public Entrada(int id, Pelicula pelicula, Sala sala, int fila, int asiento) {
+		this.id = id;
+		this.pelicula = pelicula;
+		this.sala = sala;
+		this.fila = fila;
+		this.asiento = asiento;
+	}
 
 	public int getId() {
 		return this.id;

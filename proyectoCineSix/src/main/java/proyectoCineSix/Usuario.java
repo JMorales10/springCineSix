@@ -40,6 +40,15 @@ public class Usuario implements Serializable {
 
 	public Usuario() {
 	}
+	
+	public Usuario(int id, String nombre, String correo, String password, Date fechaNac, String rol) {
+		this.id = id;
+		this.nombre = nombre;
+		this.correo = correo;
+		this.password = password;
+		this.fechaNac = fechaNac;
+		this.rol = rol;
+	}
 
 	public int getId() {
 		return this.id;

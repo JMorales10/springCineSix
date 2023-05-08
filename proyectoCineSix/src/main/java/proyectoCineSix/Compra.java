@@ -40,6 +40,15 @@ public class Compra implements Serializable {
 
 	public Compra() {
 	}
+	
+	public Compra(int id, Usuario usuario, Entrada entrada, Pelicula pelicula, Date fecha_compra, float precio) {
+		this.id = id;
+		this.usuario = usuario;
+		this.entrada = entrada;
+		this.pelicula = pelicula;
+		this.fechaCompra = fecha_compra;
+		this.precio = precio;
+	}
 
 	public int getId() {
 		return this.id;

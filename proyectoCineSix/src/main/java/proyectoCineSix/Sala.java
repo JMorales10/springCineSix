@@ -32,6 +32,12 @@ public class Sala implements Serializable {
 
 	public Sala() {
 	}
+	
+	public Sala(int id, int numero_sala, int capacidad) {
+		this.id = id;
+		this.numeroSala = numero_sala;
+		this.capacidad = capacidad;
+	}
 
 	public int getId() {
 		return this.id;
