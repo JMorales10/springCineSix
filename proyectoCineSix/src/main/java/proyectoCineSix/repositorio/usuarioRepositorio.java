@@ -17,8 +17,6 @@ public interface usuarioRepositorio extends JpaRepository<Usuario, Serializable>
 	@Bean
 	public abstract List<Usuario> findAll();
 	public abstract Usuario findById(int id);
-	public abstract Usuario findByNombre(String dni);
-	public abstract Usuario findByCorreoAndClave(String correo, String clave);
 	@Transactional
 	public abstract void deleteById(int id);
 	
