@@ -42,11 +42,12 @@ public class peliculaController {
 			DTO dtoPelicula = new DTO();
 
 			dtoPelicula.put("id", p.getId());
-			dtoPelicula.put("id_sala", p.getSala());
+			dtoPelicula.put("id_sala", p.getSala().getId());
 			dtoPelicula.put("nombre", p.getNombre());
 			dtoPelicula.put("genero", p.getGenero());
 			dtoPelicula.put("duracion", p.getDuracion());
 			dtoPelicula.put("descripcion", p.getDescripcion());
+			dtoPelicula.put("imagen", p.getImagen());
 			
 			listaPeliculasDTO.add(dtoPelicula);
 		}
@@ -62,11 +63,12 @@ public class peliculaController {
 
 		if(p != null) {
 			dtoPelicula.put("id", p.getId());
-			dtoPelicula.put("id_sala", p.getSala());
+			dtoPelicula.put("id_sala", p.getSala().getId());
 			dtoPelicula.put("nombre", p.getNombre());
 			dtoPelicula.put("genero", p.getGenero());
 			dtoPelicula.put("duracion", p.getDuracion());
 			dtoPelicula.put("descripcion", p.getDescripcion());
+			dtoPelicula.put("imagen", p.getImagen());
 		}else {
 			dtoPelicula.put("error", "not found");
 		}
@@ -76,12 +78,12 @@ public class peliculaController {
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void crearPelicula(@RequestBody DatosAltaPelicula p, HttpServletRequest request) {
-		peliRep.save(new Pelicula(p.id, salaRep.findById(p.id_sala), p.nombre, p.genero, p.duracion, p.descripcion));
+		peliRep.save(new Pelicula(p.id, salaRep.findById(p.id_sala), p.nombre, p.genero, p.duracion, p.descripcion, p.imagen));
 	}
 	
 	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void updatePelicula(@RequestBody DatosAltaPelicula p, HttpServletRequest request, @PathVariable("id") int id) {
-		peliRep.save(new Pelicula(id, salaRep.findById(p.id_sala), p.nombre, p.genero, p.duracion, p.descripcion));
+		peliRep.save(new Pelicula(id, salaRep.findById(p.id_sala), p.nombre, p.genero, p.duracion, p.descripcion, p.imagen));
 	}
 	
 	static class DatosAltaPelicula {
@@ -91,8 +93,9 @@ public class peliculaController {
 		String genero;
 		int duracion;
 		String descripcion;
+		String imagen;
 
-		public DatosAltaPelicula(int id, int id_sala, String nombre, String genero, int duracion, String descripcion) {
+		public DatosAltaPelicula(int id, int id_sala, String nombre, String genero, int duracion, String descripcion, String imagen) {
 			super();
 			this.id = id;
 			this.id_sala = id_sala;
@@ -100,6 +103,7 @@ public class peliculaController {
 			this.genero = genero;
 			this.duracion = duracion;
 			this.descripcion = descripcion;
+			this.imagen = imagen;
 		}
 	}
 	

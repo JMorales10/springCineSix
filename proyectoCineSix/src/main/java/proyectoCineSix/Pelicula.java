@@ -23,6 +23,8 @@ public class Pelicula implements Serializable {
 
 	private String genero;
 
+	private String imagen;
+
 	private String nombre;
 
 	//bi-directional many-to-one association to Compra
@@ -45,13 +47,14 @@ public class Pelicula implements Serializable {
 	public Pelicula() {
 	}
 	
-	public Pelicula(int id, Sala sala, String nombre, String genero, int duracion, String descripcion) {
+	public Pelicula(int id, Sala sala, String nombre, String genero, int duracion, String descripcion, String imagen) {
 		this.id = id;
 		this.sala = sala;
 		this.nombre = nombre;
 		this.genero = genero;
 		this.duracion = duracion;
 		this.descripcion = descripcion;
+		this.imagen = imagen;
 	}
 
 	public int getId() {
@@ -84,6 +87,14 @@ public class Pelicula implements Serializable {
 
 	public void setGenero(String genero) {
 		this.genero = genero;
+	}
+
+	public String getImagen() {
+		return this.imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 	public String getNombre() {
