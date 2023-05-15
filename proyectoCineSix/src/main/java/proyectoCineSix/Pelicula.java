@@ -35,30 +35,24 @@ public class Pelicula implements Serializable {
 	@OneToMany(mappedBy="pelicula")
 	private List<Entrada> entradas;
 
-	//bi-directional many-to-one association to Sala
-	@ManyToOne
-	@JoinColumn(name="id_sala")
-	private Sala sala;
-
-	//bi-directional many-to-one association to Valoracione
+	//bi-directional many-to-one association to Horario
 	@OneToMany(mappedBy="pelicula")
-	private List<Valoracione> valoraciones;
+	private List<Horario> horarios;
 
 	public Pelicula() {
 	}
+
+	public int getId() {
+		return this.id;
+	}
 	
-	public Pelicula(int id, Sala sala, String nombre, String genero, int duracion, String descripcion, String imagen) {
+	public Pelicula(int id, String nombre, String genero, int duracion, String descripcion, String imagen) {
 		this.id = id;
-		this.sala = sala;
 		this.nombre = nombre;
 		this.genero = genero;
 		this.duracion = duracion;
 		this.descripcion = descripcion;
 		this.imagen = imagen;
-	}
-
-	public int getId() {
-		return this.id;
 	}
 
 	public void setId(int id) {
@@ -149,34 +143,26 @@ public class Pelicula implements Serializable {
 		return entrada;
 	}
 
-	public Sala getSala() {
-		return this.sala;
+	public List<Horario> getHorarios() {
+		return this.horarios;
 	}
 
-	public void setSala(Sala sala) {
-		this.sala = sala;
+	public void setHorarios(List<Horario> horarios) {
+		this.horarios = horarios;
 	}
 
-	public List<Valoracione> getValoraciones() {
-		return this.valoraciones;
+	public Horario addHorario(Horario horario) {
+		getHorarios().add(horario);
+		horario.setPelicula(this);
+
+		return horario;
 	}
 
-	public void setValoraciones(List<Valoracione> valoraciones) {
-		this.valoraciones = valoraciones;
-	}
+	public Horario removeHorario(Horario horario) {
+		getHorarios().remove(horario);
+		horario.setPelicula(null);
 
-	public Valoracione addValoracione(Valoracione valoracione) {
-		getValoraciones().add(valoracione);
-		valoracione.setPelicula(this);
-
-		return valoracione;
-	}
-
-	public Valoracione removeValoracione(Valoracione valoracione) {
-		getValoraciones().remove(valoracione);
-		valoracione.setPelicula(null);
-
-		return valoracione;
+		return horario;
 	}
 
 }

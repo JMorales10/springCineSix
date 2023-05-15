@@ -9,15 +9,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import proyectoCineSix.Usuario;
+import proyectoCineSix.Horario;
 
 @Repository
-public interface usuarioRepositorio extends JpaRepository<Usuario, Serializable>{
-	
+
+public interface horarioRepositorio extends JpaRepository<Horario, Serializable>{
 	@Bean
-	public abstract List<Usuario> findAll();
-	public abstract Usuario findById(int id);
-	public abstract Usuario findByCorreoAndPassword(String correo, String password);
+	public abstract List<Horario> findAll();
+	public abstract Horario findById(int id);
+
+	
 	@Transactional
 	public abstract void deleteById(int id);
 	

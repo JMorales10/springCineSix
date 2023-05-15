@@ -6,6 +6,6 @@
 		<class>proyectoCineSix.Pelicula</class>
 		<class>proyectoCineSix.Sala</class>
 		<class>proyectoCineSix.Usuario</class>
-		<class>proyectoCineSix.Valoracione</class>
+		<class>proyectoCineSix.Horario</class>
 	</persistence-unit>
 </persistence>

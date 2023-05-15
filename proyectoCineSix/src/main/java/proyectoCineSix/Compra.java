@@ -23,11 +23,6 @@ public class Compra implements Serializable {
 
 	private float precio;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="id_usuario")
-	private Usuario usuario;
-
 	//bi-directional many-to-one association to Entrada
 	@ManyToOne
 	@JoinColumn(name="id_entrada")
@@ -37,6 +32,11 @@ public class Compra implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_pelicula")
 	private Pelicula pelicula;
+
+	//bi-directional many-to-one association to Usuario
+	@ManyToOne
+	@JoinColumn(name="id_usuario")
+	private Usuario usuario;
 
 	public Compra() {
 	}
@@ -49,6 +49,7 @@ public class Compra implements Serializable {
 		this.fechaCompra = fecha_compra;
 		this.precio = precio;
 	}
+
 
 	public int getId() {
 		return this.id;
@@ -74,14 +75,6 @@ public class Compra implements Serializable {
 		this.precio = precio;
 	}
 
-	public Usuario getUsuario() {
-		return this.usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
 	public Entrada getEntrada() {
 		return this.entrada;
 	}
@@ -96,6 +89,14 @@ public class Compra implements Serializable {
 
 	public void setPelicula(Pelicula pelicula) {
 		this.pelicula = pelicula;
+	}
+
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

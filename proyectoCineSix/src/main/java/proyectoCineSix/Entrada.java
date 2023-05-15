@@ -25,15 +25,15 @@ public class Entrada implements Serializable {
 	@OneToMany(mappedBy="entrada")
 	private List<Compra> compras;
 
-	//bi-directional many-to-one association to Sala
-	@ManyToOne
-	@JoinColumn(name="id_sala")
-	private Sala sala;
-
 	//bi-directional many-to-one association to Pelicula
 	@ManyToOne
 	@JoinColumn(name="id_pelicula")
 	private Pelicula pelicula;
+
+	//bi-directional many-to-one association to Sala
+	@ManyToOne
+	@JoinColumn(name="id_sala")
+	private Sala sala;
 
 	public Entrada() {
 	}
@@ -92,20 +92,20 @@ public class Entrada implements Serializable {
 		return compra;
 	}
 
-	public Sala getSala() {
-		return this.sala;
-	}
-
-	public void setSala(Sala sala) {
-		this.sala = sala;
-	}
-
 	public Pelicula getPelicula() {
 		return this.pelicula;
 	}
 
 	public void setPelicula(Pelicula pelicula) {
 		this.pelicula = pelicula;
+	}
+
+	public Sala getSala() {
+		return this.sala;
+	}
+
+	public void setSala(Sala sala) {
+		this.sala = sala;
 	}
 
 }

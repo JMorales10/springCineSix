@@ -34,10 +34,6 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private List<Compra> compras;
 
-	//bi-directional many-to-one association to Valoracione
-	@OneToMany(mappedBy="usuario")
-	private List<Valoracione> valoraciones;
-
 	public Usuario() {
 	}
 	
@@ -118,28 +114,6 @@ public class Usuario implements Serializable {
 		compra.setUsuario(null);
 
 		return compra;
-	}
-
-	public List<Valoracione> getValoraciones() {
-		return this.valoraciones;
-	}
-
-	public void setValoraciones(List<Valoracione> valoraciones) {
-		this.valoraciones = valoraciones;
-	}
-
-	public Valoracione addValoracione(Valoracione valoracione) {
-		getValoraciones().add(valoracione);
-		valoracione.setUsuario(this);
-
-		return valoracione;
-	}
-
-	public Valoracione removeValoracione(Valoracione valoracione) {
-		getValoraciones().remove(valoracione);
-		valoracione.setUsuario(null);
-
-		return valoracione;
 	}
 
 }
