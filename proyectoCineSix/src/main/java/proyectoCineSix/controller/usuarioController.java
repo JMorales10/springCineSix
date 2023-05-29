@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -103,41 +103,13 @@ public class usuarioController {
 		}
 	}
 	
-	@DeleteMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path = "/{id}")
 	public void deleteUsuario(HttpServletRequest request, @PathVariable("id") int id){
 		if(usuRep.findById(id) != null) {
 			usuRep.deleteById(id);
 		}
 	}
 	
-	@PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public DTO autentitcaUsuario(@RequestBody DatosAutenticacionUsuario datos, HttpServletRequest request,
-			HttpServletResponse response) {
-
-		DTO dto = new DTO();
-		dto.put("result", "fail");
-
-		Usuario usuAutenticado = usuRep.findByCorreoAndPassword(datos.correo, datos.password);
-
-		// si existe el usuario y los datos son correctos, devolveremos un success y
-		// todos los datos del usuario
-		if (usuAutenticado != null) {
-			dto.put("result", "success");
-
-			// devolvemos jwt que usaremos de ahora en adelante en las cabeceras para
-			// identificar al usuario
-			dto.put("jwt", AutenticadorJWT.codificaJWT(usuAutenticado));
-
-			// Prueba cookie. Quita el request y el response
-			Cookie cook = new Cookie("jwt", AutenticadorJWT.codificaJWT(usuAutenticado));
-			cook.setMaxAge(-1);
-			response.addCookie(cook);
-			//
-		}
-
-		return dto;
-	}
-		
 	static class DatosAutenticacionUsuario {
 		String correo;
 		String password;
@@ -150,32 +122,42 @@ public class usuarioController {
 
 	}
 	
-	@GetMapping("/quieneres")
-	public DTO getAutenticado(HttpServletRequest request) {
-		DTO dtoUsuaria = new DTO();
-		Cookie[] c = request.getCookies();
-		int idUsuarioAutenticado = -1;
-		for (Cookie co : c) {
-		if (co.getName().equals("jwt"))
-				// dtoUsuaria.put("id",
-       idUsuarioAutenticado = AutenticadorJWT.getIdUsuarioDesdeJWT(co.getValue());
-		}
-		// identificamos usuario por jwt de cabecera recibida
+	@PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public DTO autentitcaUsuario(@RequestBody DatosAutenticacionUsuario datos, HttpServletRequest request,
+			HttpServletResponse response) {
 
-		// int idUsuarioAutenticado =
-		// AutenticadorJWT.getIdUsuarioDesdeJwtIncrustadoEnRequest(request);
+		DTO dto = new DTO();
+		dto.put("result", "fail");
+
+		Usuario usuAutenticado = usuRep.findByCorreoAndPassword(datos.correo, datos.password);
+
+		if (usuAutenticado != null && usuAutenticado.toString() != "undefined") {
+			dto.put("result", "success");
+
+			dto.put("jwt", AutenticadorJWT.codificaJWT(usuAutenticado));
+			
+			//Cookie cook = new Cookie("jwt", AutenticadorJWT.codificaJWT(usuAutenticado));
+			//cook.setMaxAge(-1);
+			//response.addCookie(cook);
+
+		}
+
+		return dto;
+	}
+	
+	@GetMapping("/userRoleToken")
+	public DTO getAutenticado(@RequestHeader("jwt") String jwt) {
+		DTO dtoUsuaria = new DTO();
+		int idUsuarioAutenticado = -1;
+			
+		idUsuarioAutenticado = AutenticadorJWT.getIdUsuarioDesdeJWT(jwt);
 
 		Usuario u = usuRep.findById(idUsuarioAutenticado);
-		// dtoUsuaria.put("idfound", idUsuarioAutenticado);
-		// si existe el usuario y los datos son correctos, devolveremos un success y
-		// todos los datos del usuario
+
 		if (u != null) {
-			dtoUsuaria.put("id", u.getId());
-			dtoUsuaria.put("nombre", u.getNombre());
-			dtoUsuaria.put("correo", u.getCorreo());
-			dtoUsuaria.put("password", u.getPassword());
-			dtoUsuaria.put("fecha_nac", u.getFechaNac());
 			dtoUsuaria.put("rol", u.getRol());
+		} else {
+			dtoUsuaria.put("error", "usuario no encontrado");
 		}
 
 		return dtoUsuaria;
