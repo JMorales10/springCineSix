@@ -76,12 +76,12 @@ public class usuarioController {
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void crearUsuario(@RequestBody DatosAltaUsuario u, HttpServletRequest request) {
-		usuRep.save(new Usuario(u.id, u.nombre, u.correo, u.password, u.fechaNac, u.rol));
+		usuRep.save(new Usuario(u.id, u.nombre, u.correo, u.password, u.fecha_nac, u.rol));
 	}
 	
 	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void updateUsuario(@RequestBody DatosAltaUsuario u, HttpServletRequest request, @PathVariable("id") int id) {
-		usuRep.save(new Usuario(id, u.nombre, u.correo, u.password, u.fechaNac, u.rol));
+		usuRep.save(new Usuario(id, u.nombre, u.correo, u.password, u.fecha_nac, u.rol));
 	}
 	
 	static class DatosAltaUsuario {
@@ -89,16 +89,16 @@ public class usuarioController {
 		String nombre;
 		String correo;
 		String password;
-		Date fechaNac;
+		Date fecha_nac;
 		String rol;
 
-		public DatosAltaUsuario(int id, String nombre, String correo, String password, Date fechaNac, String rol) {
+		public DatosAltaUsuario(int id, String nombre, String correo, String password, Date fecha_nac, String rol) {
 			super();
 			this.id = id;
 			this.nombre = nombre;
 			this.correo = correo;
 			this.password = password;
-			this.fechaNac = fechaNac;
+			this.fecha_nac = fecha_nac;
 			this.rol = rol;
 		}
 	}

@@ -1,5 +1,6 @@
 package proyectoCineSix.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,10 +47,11 @@ public class entradaController {
 			DTO dtoEntrada = new DTO();
 
 			dtoEntrada.put("id", p.getId());
-			dtoEntrada.put("id_pelicula", p.getPelicula());
-			dtoEntrada.put("id_sala", p.getSala());
+			dtoEntrada.put("id_pelicula", p.getPelicula().getId());
+			dtoEntrada.put("id_sala", p.getSala().getId());
 			dtoEntrada.put("fila", p.getFila());
 			dtoEntrada.put("asiento", p.getAsiento());
+			dtoEntrada.put("fecha", p.getFecha());
 			
 			listaEntradasDTO.add(dtoEntrada);
 		}
@@ -69,6 +71,7 @@ public class entradaController {
 			dtoEntrada.put("id_sala", p.getSala());
 			dtoEntrada.put("fila", p.getFila());
 			dtoEntrada.put("asiento", p.getAsiento());
+			dtoEntrada.put("fecha", p.getFecha());
 		}else {
 			dtoEntrada.put("error", "not found");
 		}
@@ -78,12 +81,12 @@ public class entradaController {
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void crearEntrada(@RequestBody DatosAltaEntrada e, HttpServletRequest request) {
-		entRep.save(new Entrada(e.id, peliRep.findById(e.id_pelicula), salaRep.findById(e.id_sala), e.fila, e.asiento));
+		entRep.save(new Entrada(e.id, peliRep.findById(e.id_pelicula), salaRep.findById(e.id_sala), e.fila, e.asiento, e.fecha));
 	}
 	
 	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void updateEntrada(@RequestBody DatosAltaEntrada e, HttpServletRequest request, @PathVariable("id") int id) {
-		entRep.save(new Entrada(id, peliRep.findById(e.id_pelicula), salaRep.findById(e.id_sala), e.fila, e.asiento));
+		entRep.save(new Entrada(id, peliRep.findById(e.id_pelicula), salaRep.findById(e.id_sala), e.fila, e.asiento, e.fecha));
 	}
 	
 	static class DatosAltaEntrada {
@@ -92,14 +95,16 @@ public class entradaController {
 		int id_sala; 
 		int fila;
 		int asiento;
+		Date fecha;
 
-		public DatosAltaEntrada(int id, int id_pelicula, int id_sala, int fila, int asiento) {
+		public DatosAltaEntrada(int id, int id_pelicula, int id_sala, int fila, int asiento, Date fecha) {
 			super();
 			this.id = id;
 			this.id_pelicula = id_pelicula;
 			this.id_sala = id_sala;
 			this.fila = fila;
 			this.asiento = asiento;
+			this.fecha = fecha;
 		}
 	}
 	

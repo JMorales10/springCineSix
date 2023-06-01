@@ -2,6 +2,8 @@ package proyectoCineSix;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.Date;
 import java.util.List;
 
 
@@ -17,6 +19,9 @@ public class Entrada implements Serializable {
 	@Id
 	private int id;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fecha;
+	
 	private int asiento;
 
 	private int fila;
@@ -38,12 +43,13 @@ public class Entrada implements Serializable {
 	public Entrada() {
 	}
 	
-	public Entrada(int id, Pelicula pelicula, Sala sala, int fila, int asiento) {
+	public Entrada(int id, Pelicula pelicula, Sala sala, int fila, int asiento, Date fecha) {
 		this.id = id;
 		this.pelicula = pelicula;
 		this.sala = sala;
 		this.fila = fila;
 		this.asiento = asiento;
+		this.fecha = fecha;
 	}
 
 	public int getId() {
@@ -106,6 +112,14 @@ public class Entrada implements Serializable {
 
 	public void setSala(Sala sala) {
 		this.sala = sala;
+	}
+	
+	public Date getFecha() {
+		return this.fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 
 }
