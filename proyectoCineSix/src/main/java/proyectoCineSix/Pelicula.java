@@ -31,19 +31,11 @@ public class Pelicula implements Serializable {
 	@OneToMany(mappedBy="pelicula")
 	private List<Compra> compras;
 
-	//bi-directional many-to-one association to Entrada
-	@OneToMany(mappedBy="pelicula")
-	private List<Entrada> entradas;
-
 	//bi-directional many-to-one association to Horario
 	@OneToMany(mappedBy="pelicula")
 	private List<Horario> horarios;
 
 	public Pelicula() {
-	}
-
-	public int getId() {
-		return this.id;
 	}
 	
 	public Pelicula(int id, String nombre, String genero, int duracion, String descripcion, String imagen) {
@@ -53,6 +45,10 @@ public class Pelicula implements Serializable {
 		this.duracion = duracion;
 		this.descripcion = descripcion;
 		this.imagen = imagen;
+	}
+
+	public int getId() {
+		return this.id;
 	}
 
 	public void setId(int id) {
@@ -119,28 +115,6 @@ public class Pelicula implements Serializable {
 		compra.setPelicula(null);
 
 		return compra;
-	}
-
-	public List<Entrada> getEntradas() {
-		return this.entradas;
-	}
-
-	public void setEntradas(List<Entrada> entradas) {
-		this.entradas = entradas;
-	}
-
-	public Entrada addEntrada(Entrada entrada) {
-		getEntradas().add(entrada);
-		entrada.setPelicula(this);
-
-		return entrada;
-	}
-
-	public Entrada removeEntrada(Entrada entrada) {
-		getEntradas().remove(entrada);
-		entrada.setPelicula(null);
-
-		return entrada;
 	}
 
 	public List<Horario> getHorarios() {

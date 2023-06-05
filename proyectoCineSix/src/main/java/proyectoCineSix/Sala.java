@@ -22,9 +22,9 @@ public class Sala implements Serializable {
 	@Column(name="numero_sala")
 	private int numeroSala;
 
-	//bi-directional many-to-one association to Entrada
+	//bi-directional many-to-one association to Compra
 	@OneToMany(mappedBy="sala")
-	private List<Entrada> entradas;
+	private List<Compra> compras;
 
 	//bi-directional many-to-one association to Horario
 	@OneToMany(mappedBy="sala")
@@ -63,26 +63,26 @@ public class Sala implements Serializable {
 		this.numeroSala = numeroSala;
 	}
 
-	public List<Entrada> getEntradas() {
-		return this.entradas;
+	public List<Compra> getCompras() {
+		return this.compras;
 	}
 
-	public void setEntradas(List<Entrada> entradas) {
-		this.entradas = entradas;
+	public void setCompras(List<Compra> compras) {
+		this.compras = compras;
 	}
 
-	public Entrada addEntrada(Entrada entrada) {
-		getEntradas().add(entrada);
-		entrada.setSala(this);
+	public Compra addCompra(Compra compra) {
+		getCompras().add(compra);
+		compra.setSala(this);
 
-		return entrada;
+		return compra;
 	}
 
-	public Entrada removeEntrada(Entrada entrada) {
-		getEntradas().remove(entrada);
-		entrada.setSala(null);
+	public Compra removeCompra(Compra compra) {
+		getCompras().remove(compra);
+		compra.setSala(null);
 
-		return entrada;
+		return compra;
 	}
 
 	public List<Horario> getHorarios() {

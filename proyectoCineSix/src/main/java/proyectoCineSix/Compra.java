@@ -17,21 +17,25 @@ public class Compra implements Serializable {
 	@Id
 	private int id;
 
+	private int asiento;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_compra")
 	private Date fechaCompra;
 
-	private float precio;
+	private int fila;
 
-	//bi-directional many-to-one association to Entrada
-	@ManyToOne
-	@JoinColumn(name="id_entrada")
-	private Entrada entrada;
+	private float precio;
 
 	//bi-directional many-to-one association to Pelicula
 	@ManyToOne
 	@JoinColumn(name="id_pelicula")
 	private Pelicula pelicula;
+
+	//bi-directional many-to-one association to Sala
+	@ManyToOne
+	@JoinColumn(name="id_sala")
+	private Sala sala;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -41,15 +45,16 @@ public class Compra implements Serializable {
 	public Compra() {
 	}
 	
-	public Compra(int id, Usuario usuario, Entrada entrada, Pelicula pelicula, Date fecha_compra, float precio) {
+	public Compra(int id, Usuario usuario, Sala sala, Pelicula pelicula, Date fecha_compra, float precio, int fila, int asiento) {
 		this.id = id;
 		this.usuario = usuario;
-		this.entrada = entrada;
+		this.sala = sala;
 		this.pelicula = pelicula;
 		this.fechaCompra = fecha_compra;
 		this.precio = precio;
-	}
-
+		this.fila = fila;
+		this.asiento = asiento;
+	} 
 
 	public int getId() {
 		return this.id;
@@ -57,6 +62,14 @@ public class Compra implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getAsiento() {
+		return this.asiento;
+	}
+
+	public void setAsiento(int asiento) {
+		this.asiento = asiento;
 	}
 
 	public Date getFechaCompra() {
@@ -67,6 +80,14 @@ public class Compra implements Serializable {
 		this.fechaCompra = fechaCompra;
 	}
 
+	public int getFila() {
+		return this.fila;
+	}
+
+	public void setFila(int fila) {
+		this.fila = fila;
+	}
+
 	public float getPrecio() {
 		return this.precio;
 	}
@@ -75,20 +96,20 @@ public class Compra implements Serializable {
 		this.precio = precio;
 	}
 
-	public Entrada getEntrada() {
-		return this.entrada;
-	}
-
-	public void setEntrada(Entrada entrada) {
-		this.entrada = entrada;
-	}
-
 	public Pelicula getPelicula() {
 		return this.pelicula;
 	}
 
 	public void setPelicula(Pelicula pelicula) {
 		this.pelicula = pelicula;
+	}
+
+	public Sala getSala() {
+		return this.sala;
+	}
+
+	public void setSala(Sala sala) {
+		this.sala = sala;
 	}
 
 	public Usuario getUsuario() {
