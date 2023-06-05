@@ -155,6 +155,7 @@ public class usuarioController {
 		Usuario u = usuRep.findById(idUsuarioAutenticado);
 
 		if (u != null) {
+			dtoUsuaria.put("id", u.getId());
 			dtoUsuaria.put("rol", u.getRol());
 		} else {
 			dtoUsuaria.put("error", "usuario no encontrado");
