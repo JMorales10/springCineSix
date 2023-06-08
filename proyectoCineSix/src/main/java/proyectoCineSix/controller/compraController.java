@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import proyectoCineSix.Compra;
 import proyectoCineSix.repositorio.compraRepositorio;
-import proyectoCineSix.repositorio.entradaRepositorio;
 import proyectoCineSix.repositorio.peliculaRepositorio;
+import proyectoCineSix.repositorio.salaRepositorio;
 import proyectoCineSix.repositorio.usuarioRepositorio;
 
 @CrossOrigin
@@ -33,7 +33,7 @@ public class compraController {
 	compraRepositorio compRep;
 	
 	@Autowired
-	entradaRepositorio entraRep;
+	salaRepositorio salaRep;
 	
 	@Autowired
 	usuarioRepositorio usuRep;
@@ -51,11 +51,13 @@ public class compraController {
 			DTO dtoCompra = new DTO();
 
 			dtoCompra.put("id", c.getId());
-			dtoCompra.put("id_usuario", c.getUsuario());
-			dtoCompra.put("id_entrada", c.getEntrada());
-			dtoCompra.put("id_pelicula", c.getPelicula());
-			dtoCompra.put("fecha_compra", c.getFechaCompra());
+			dtoCompra.put("id_usuario", c.getUsuario().getId());
+			dtoCompra.put("id_sala", c.getSala().getId());
+			dtoCompra.put("id_pelicula", c.getPelicula().getId());
+			dtoCompra.put("fecha", c.getFecha());
 			dtoCompra.put("precio", c.getPrecio());
+			dtoCompra.put("fila", c.getFila());
+			dtoCompra.put("asiento", c.getAsiento());
 			
 			
 			listaComprasDTO.add(dtoCompra);
@@ -72,11 +74,13 @@ public class compraController {
 
 		if(c != null) {
 			dtoCompra.put("id", c.getId());
-			dtoCompra.put("id_usuario", c.getUsuario());
-			dtoCompra.put("id_entrada", c.getEntrada());
-			dtoCompra.put("id_pelicula", c.getPelicula());
-			dtoCompra.put("fecha_compra", c.getFechaCompra());
+			dtoCompra.put("id_usuario", c.getUsuario().getId());
+			dtoCompra.put("id_sala", c.getSala().getId());
+			dtoCompra.put("id_pelicula", c.getPelicula().getId());
+			dtoCompra.put("fecha", c.getFecha());
 			dtoCompra.put("precio", c.getPrecio());
+			dtoCompra.put("fila", c.getFila());
+			dtoCompra.put("asiento", c.getAsiento());
 		}else {
 			dtoCompra.put("error", "not found");
 		}
@@ -86,30 +90,34 @@ public class compraController {
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void crearCompra(@RequestBody DatosAltaCompra c, HttpServletRequest request) {
-		compRep.save(new Compra(c.id, usuRep.findById(c.id_usuario), entraRep.findById(c.id_entrada), peliRep.findById(c.id_pelicula), c.fecha_compra, c.precio));
+		compRep.save(new Compra(c.id, usuRep.findById(c.id_usuario), salaRep.findById(c.id_sala), peliRep.findById(c.id_pelicula), c.fecha_compra, c.precio, c.fila, c.asiento));
 	}
 	
 	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void updateCompra(@RequestBody DatosAltaCompra c, HttpServletRequest request, @PathVariable("id") int id) {
-		compRep.save(new Compra(id, usuRep.findById(c.id_usuario), entraRep.findById(c.id_entrada), peliRep.findById(c.id_pelicula), c.fecha_compra, c.precio));
+		compRep.save(new Compra(c.id, usuRep.findById(c.id_usuario), salaRep.findById(c.id_sala), peliRep.findById(c.id_pelicula), c.fecha_compra, c.precio, c.fila, c.asiento));
 	}
 	
 	static class DatosAltaCompra {
 		int id;
 		int id_usuario;
-		int id_entrada;
+		int id_sala;
 		int id_pelicula;
 		Date fecha_compra;
 		float precio;
+		int fila;
+		int asiento;
 
-		public DatosAltaCompra(int id, int id_usuario, int id_entrada, int id_pelicula, Date fecha_compra, float precio) {
+		public DatosAltaCompra(int id, int id_usuario, int id_sala, int id_pelicula, Date fecha_compra, float precio, int fila, int asiento) {
 			super();
 			this.id = id;
 			this.id_usuario = id_usuario;
-			this.id_entrada = id_entrada;
+			this.id_sala = id_sala;
 			this.id_pelicula = id_pelicula;
 			this.fecha_compra = fecha_compra;
 			this.precio = precio;
+			this.fila = fila;
+			this.asiento = asiento;
 			
 		}
 	}

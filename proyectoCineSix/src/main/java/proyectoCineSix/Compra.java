@@ -19,9 +19,8 @@ public class Compra implements Serializable {
 
 	private int asiento;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_compra")
-	private Date fechaCompra;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fecha;
 
 	private int fila;
 
@@ -45,12 +44,12 @@ public class Compra implements Serializable {
 	public Compra() {
 	}
 	
-	public Compra(int id, Usuario usuario, Sala sala, Pelicula pelicula, Date fecha_compra, float precio, int fila, int asiento) {
+	public Compra(int id, Usuario usuario, Sala sala, Pelicula pelicula, Date fecha, float precio, int fila, int asiento) {
 		this.id = id;
 		this.usuario = usuario;
 		this.sala = sala;
 		this.pelicula = pelicula;
-		this.fechaCompra = fecha_compra;
+		this.fecha = fecha;
 		this.precio = precio;
 		this.fila = fila;
 		this.asiento = asiento;
@@ -72,12 +71,12 @@ public class Compra implements Serializable {
 		this.asiento = asiento;
 	}
 
-	public Date getFechaCompra() {
-		return this.fechaCompra;
+	public Date getFecha() {
+		return this.fecha;
 	}
 
-	public void setFechaCompra(Date fechaCompra) {
-		this.fechaCompra = fechaCompra;
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 
 	public int getFila() {
